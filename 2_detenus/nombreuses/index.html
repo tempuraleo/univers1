@@ -1,0 +1,69 @@
+
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-entity-generator-component@3.0.1/dist/aframe-entity-generator-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+  </head>
+  <body>
+
+    <a-scene>
+
+<script>
+
+</script>
+
+      <a-assets>
+          <a-asset-item id="cecile1" src="models/cecile1.glb"></a-asset-item>
+          <a-asset-item id="cecile2" src="models/cecile2.glb"></a-asset-item>
+          <a-asset-item id="cecile3" src="models/cecile3.glb"></a-asset-item>
+                  <a-mixin id="perso1"
+         gltf-model="#cecile1"
+         random-position="min: -0.8 0 -0.8; max: -0.75 0 2.6"
+         scale="1 1 1"
+         random-rotation="min: 0 0 0; max: 0 150 0"
+         ></a-mixin>
+
+         <a-mixin id="perso2"
+gltf-model="#cecile2"
+random-position="min: -0.8 -0.304 -0.8; max: -0.75 -0.304 2.6"
+scale="1 1 1"
+random-rotation="min: 0 0 0; max: 0 150 0"
+></a-mixin>
+
+<a-mixin id="perso3"
+gltf-model="#cecile3"
+random-position="min: -0.8 -0.040 -0.8; max: -0.75 -0.040 2.6"
+scale="1 1 1"
+random-rotation="min: 0 0 0; max: 0 150 0"
+></a-mixin>
+        <a-asset-item id="maison" src="models/cellule1.glb"></a-asset-item>
+
+      </a-assets>
+
+
+
+      <a-plane color='grey'
+               static-body
+               rotation="-90 0 0" width="10" height="10"
+               position="0 0 0"></a-plane>
+
+
+  <!--<a-entity gltf-model="#maison" position="-1.6 -0.5 -1" rotation="0 0 0"  scale="1.2 1.6 1.2"></a-entity>-->
+    <a-entity gltf-model="#maison" position="0 0 0" rotation="0 90 0"  scale="0.35 0.35 0.35"></a-entity>
+<!--<a-entity entity-generator="mixin: random-2 symbole3D; num: 500"></a-entity>-->
+<a-entity entity-generator="mixin: perso1; num: 10" delay="1000"></a-entity>
+<a-entity entity-generator="mixin: perso2; num: 10" delay="1000"></a-entity>
+<a-entity entity-generator="mixin: perso3; num: 10" delay="1000"></a-entity>
+
+
+ <a-entity id="camera" position="0 1.65 0" camera look-controls></a-entity>
+
+
+
+</a-entity>
+
+    </a-scene>
+
+  </body>
+</html>
