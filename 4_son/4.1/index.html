@@ -13,6 +13,7 @@
       <a-assets>
         <a-asset-item id="maison" src="models/cellule1.glb"></a-asset-item>
         <audio id="son" src="models/sonprison2.mp3" preload="auto"></audio>
+        <audio id="son2" src="models/sonprison3.mp3" preload="auto"></audio>
       </a-assets>
 
 
@@ -20,6 +21,11 @@
     <a-box position="0 0 -5" color="#ff0000" >
       <a-sound autoplay="true" src="#son"></a-sound>
      </a-box>
+</a-entity>
+<a-entity position="0 1.6 0" >
+<a-box position="0 0 -5" color="#000ff0" >
+<a-sound autoplay="true" src="#son2"></a-sound>
+</a-box>
 </a-entity>
 
     <!--  <a-entity light="type: ambient; color: #CCC"></a-entity>-->
@@ -60,7 +66,7 @@
     <script>
         var b = document.querySelector('#bouton');
         var son = document.querySelector('#son');
-
+        var son2 = document.querySelector('#son2');
         var AudioContext = window.AudioContext || window.webkitAudioContext;
         var contexteAudio = new AudioContext;
 
@@ -73,12 +79,14 @@
         contexteAudio.resume();
         console.log('Playback resumed successfully');
         son.play();
+        son2.play();
         b.innerHTML = "STOP";
         console.log("STOP CONSOLE");
       } else {
         contexteAudio.suspend();
         console.log('Playback paused successfully');
         son.pause();
+        son2.pause();
         b.innerHTML = "PLAY";
         console.log("PLAY CONSOLE");
       }
