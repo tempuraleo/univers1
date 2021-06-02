@@ -12,11 +12,11 @@
 
       <a-assets>
         <a-asset-item id="maison" src="models/cellule1.glb"></a-asset-item>
-        <audio id="son" src="models/Son-Prison2.mp3" preload="auto"></audio>
-      </a-assets>
+        <audio id="son" src="models/Son-Prison.mp3" preload="auto"></audio>
+      </a-assets> 
 
 
-      <a-entity position="0 1.6 0" animation="property: rotation; to: 0 360 0; dur: 15000; easing:linear">
+      <a-entity position="0 1.6 0" >
     <a-box position="0 0 -5" color="#ff0000" >
       <a-sound autoplay="true" src="#son"></a-sound>
      </a-box>
@@ -59,7 +59,7 @@
 
     <script>
         var b = document.querySelector('#bouton');
-        var son_zorba = document.querySelector('#son');
+        var son = document.querySelector('#son');
 
         var AudioContext = window.AudioContext || window.webkitAudioContext;
         var contexteAudio = new AudioContext;
@@ -72,13 +72,13 @@
       if (contexteAudio.state == "suspended") {
         contexteAudio.resume();
         console.log('Playback resumed successfully');
-        son_zorba.play();
+        son.play();
         b.innerHTML = "STOP";
         console.log("STOP CONSOLE");
       } else {
         contexteAudio.suspend();
         console.log('Playback paused successfully');
-        son_zorba.pause();
+        son.pause();
         b.innerHTML = "PLAY";
         console.log("PLAY CONSOLE");
       }

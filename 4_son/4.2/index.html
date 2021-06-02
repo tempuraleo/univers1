@@ -1,0 +1,94 @@
+
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-entity-generator-component@3.0.1/dist/aframe-entity-generator-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+    <script src="./unlock_audio_ios.js"></script>
+  </head>
+  <body>
+
+    <a-scene>
+
+      <a-assets>
+        <a-asset-item id="maison" src="models/cellule1.glb"></a-asset-item>
+        <audio id="son" src="models/Son-Prison2.mp3" preload="auto"></audio>
+      </a-assets>
+
+
+      <a-entity position="0 1.6 0" animation="property: rotation; to: 0 360 0; dur: 15000; easing:linear">
+    <a-box position="0 0 -5" color="#ff0000" >
+      <a-sound autoplay="true" src="#son"></a-sound>
+     </a-box>
+</a-entity>
+
+    <!--  <a-entity light="type: ambient; color: #CCC"></a-entity>-->
+
+      <a-entity light="type: point; intensity: 0.75; distance: 60; decay: 2"
+                position="-0.356 1.356 3.949"
+                rotation="-90 -90 0"></a-entity>
+      <a-entity light="type: point; intensity: 0.75; distance: 60; decay: 2"
+                position="-2.643 1.616 0.326"
+                rotation="-90 -90 0"></a-entity>
+      <a-entity light="type: point; intensity: 0.75; distance: 60; decay: 2"
+                position="-1.158 1.537 -3.877"
+                rotation="-90 -90 0"></a-entity>
+
+      <a-plane color='grey'
+               static-body
+               rotation="-90 0 0" width="10" height="10"
+               position="0 0 0"></a-plane>
+
+
+  <!--<a-entity gltf-model="#maison" position="-1.6 -0.5 -1" rotation="0 0 0"  scale="1.2 1.6 1.2"></a-entity>-->
+    <a-entity gltf-model="#maison" position="0 0 0" rotation="0 90 0"  scale="0.3 0.35 0.3" animation-mixer></a-entity>
+<!--<a-entity entity-generator="mixin: random-2 symbole3D; num: 500"></a-entity>-->
+
+
+
+
+ <!-- <a-entity id="camera" position="-0.5 1.65 0.5"  camera look-controls></a-entity> -->
+
+
+
+</a-entity>
+
+    </a-scene>
+
+    <button id="bouton" style="position: absolute; left: 20px; bottom: 20px;">INIT</button>
+
+    <script>
+        var b = document.querySelector('#bouton');
+        var son_zorba = document.querySelector('#son');
+
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
+        var contexteAudio = new AudioContext;
+
+        unlockAudioIOS(contexteAudio); // ok pour context = AudioContext;
+
+    function resumeAudio() {
+      console.log(contexteAudio.state);
+
+      if (contexteAudio.state == "suspended") {
+        contexteAudio.resume();
+        console.log('Playback resumed successfully');
+        son_zorba.play();
+        b.innerHTML = "STOP";
+        console.log("STOP CONSOLE");
+      } else {
+        contexteAudio.suspend();
+        console.log('Playback paused successfully');
+        son_zorba.pause();
+        b.innerHTML = "PLAY";
+        console.log("PLAY CONSOLE");
+      }
+      //document.removeEventListener("click", resumeAudio);
+    }
+
+   b.onclick = resumeAudio;
+   </script>
+
+
+
+  </body>
+</html>
