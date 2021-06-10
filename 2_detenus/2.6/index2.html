@@ -13,23 +13,28 @@
 </head>
 
 <body>
-    <a-scene background="color:lightblue" >
+    <a-scene background="color:lightblue" cursor="rayOrigin: mouse">
         <a-assets>
             <a-asset-item id="antoine4" src="models/antoine4.glb"></a-asset-item>
             <a-asset-item id="antoine5" src="models/antoine5.glb"></a-asset-item>
             <a-asset-item id="maison" src="models/cellule1.glb"></a-asset-item>
         </a-assets>
 
+        <a-entity  gltf-model="#antoine4"
+                   visible="true"
+                   proximity-sensor="target:#two; distance: 1"
+                   id="one" position="-2 1.6 -4"
+                   animation="property:position; from: -2 1.6 -4; to: 2 1.6 -4; dur: 5000; dir: alternate; loop: true"
+                   event-set__proximityenter="visible: false"
+                   event-set__proximityexit="visible: true"
+            ></a-entity>
 
-        <a-entity id="model3D2" gltf-model="#antoine4" position="-2 2 -3" scale="1 1 1" visible="false" proximity-sensor="distance: 2"
-            animation__open="property: visible; to: true; startEvents: proximityenter"
-            animation__close="property: visible; to: false; startEvents: proximityexit">
-        </a-entity>
-
-        <a-entity id="model3D1" gltf-model="#antoine5" position="-2 2 -3" scale="1 1 1" visible="true" proximity-sensor="distance: 2"
-            animation__open="property: visible; to: false; startEvents: proximityenter"
-            animation__close="property: visible; to: true; startEvents: proximityexit"
-        </a-entity>
+            <a-box proximity-sensor="target:#one; distance: 2"
+                   width="0.5" height="0.5" depth="0.5" id="two" side="both" color="green" position="2 1.6 -4"
+                   animation="property:position; from: 2 1.6 -4; to: -2 1.6 -4; dur: 5000; dir: alternate; loop: true"
+                   event-set__proximityenter="material.color:blue"
+                   event-set__proximityexit="material.color: green"
+            ></a-box>
 
 
 
