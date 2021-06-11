@@ -17,14 +17,14 @@
             <a-asset-item id="maison" src="models/cellule1.glb"></a-asset-item>
         </a-assets>
 
-        <a-entity id="model3D2" gltf-model="#antoine4" position="-2 2 -3" scale="1 1 1" visible="false" proximity-sensor="distance: 2"
-            animation__open="property: visible; to: true; startEvents: proximityenter"
-            animation__close="property: visible; to: false; startEvents: proximityexit">
+        <a-entity id="model3D2" gltf-model="#antoine4" position="-2 2 -3" scale="1 1 1" opacity="0.5" proximity-sensor="distance: 2"
+            animation__open="property: opacity; to: 1; startEvents: proximityenter"
+            animation__close="property: opacity; to: 0.5; startEvents: proximityexit">
         </a-entity>
 
-        <a-entity id="model3D1" gltf-model="#antoine5" position="-2 2 -3" scale="1 1 1" visible="true" proximity-sensor="distance: 2"
-        animation__open="property: visible; to: false; startEvents: proximityenter"
-        animation__close="property: visible; to: true; startEvents: proximityexit">
+        <a-entity id="model3D1" gltf-model="#antoine5" position="-2 2 -3" scale="1 1 1" opacity="1" proximity-sensor="distance: 2"
+        animation__open="property: opacity; to: 0.5; startEvents: proximityenter"
+        animation__close="property: opacity; to: 1; startEvents: proximityexit">
         </a-entity>
 
 
