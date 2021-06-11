@@ -15,8 +15,12 @@
       <a-scene background="color: skyblue">
         <a-assets>
           <a-asset-item id="kdo" src="./models/anniversaireMinet.glb"></a-asset-item>
+          <img id="thira" crossorigin="anonymous" src="./models/ciel.jpg" />
           <audio id="son" src="./models/happy-birthday-song-greek-style.mp3" preload="auto" autoplay="true" loop="false"></audio>
         </a-assets>
+
+
+	      <a-sky src="#thira"></a-sky>
 
         <!-- lumières -->
         <a-entity light="type: ambient; color: #CCC; intensity: 1"></a-entity>
