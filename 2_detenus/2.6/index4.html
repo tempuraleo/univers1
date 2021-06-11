@@ -11,10 +11,10 @@
           // Wait for model to load.
           this.el.addEventListener('model-loaded', () => {
             // Grab the mesh / scene.
-            const obj = this.el.getObject3D('antoine4');
+            const obj = this.el.getObject3D('mesh');
             // Go over the submeshes and modify materials we want.
             obj.traverse(node => {
-              if (node.name.indexOf('antoine4') !== -1) {
+              if (node.name.indexOf('test') !== -1) {
                 node.material.color.set('blue');
 
               }
@@ -27,10 +27,10 @@
   <body>
     <a-scene background="color: #ECECEC">
       <a-assets>
-        <a-asset-item id="cityModel" src="https://cdn.aframe.io/test-models/models/glTF-2.0/virtualcity/VC.gltf"></a-asset-item>
-        <a-asset-item id="antoine4" src="models/antoine4.glb"></a-asset-item>
+        <a-asset-item id="antoine4" src="models/Model.glb"></a-asset-item>
+                <a-asset-item id="antoine4" src="models/Model.obj"></a-asset-item>
       </a-assets>
-      <a-entity gltf-model="#antoine4"  modify-materials></a-entity>
+      <a-entity gltf-model="#antoine4" position="-2 2 -3" scale="1 1 1"  transparent="true" model-opactity="0.5"></a-entity>
     </a-scene>
   </body>
 </html>
