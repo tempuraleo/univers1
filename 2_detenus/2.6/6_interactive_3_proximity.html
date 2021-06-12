@@ -4,9 +4,33 @@
 <head>
     <title>Animations - 09 - Events - Proximity</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+
     <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
     <script src="https://unpkg.com/aframe-proxemic-component@0.0.17/dist/aframe-proxemic-component.min.js"></script>
+    <script>
+        AFRAME.registerComponent('model-opacity', {
+            schema: {
+                default: 1.0
+            },
+            init: function () {
+                this.el.addEventListener('model-loaded', this.update.bind(this));
+            },
+            update: function () {
+                var mesh = this.el.getObject3D('mesh');
+                var data = this.data;
+                if (!mesh) {
+                    return;
+                }
+                mesh.traverse(function (node) {
+                    if (node.isMesh) {
+                        node.material.opacity = data;
+                        node.material.transparent = data < 1.0;
+                        node.material.needsUpdate = true;
+                    }
+                });
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -17,14 +41,14 @@
             <a-asset-item id="maison" src="models/cellule1.glb"></a-asset-item>
         </a-assets>
 
-        <a-entity id="model3D2" gltf-model="#antoine4" position="-2 2 -3" scale="1 1 1" opacity="0.5" proximity-sensor="distance: 2"
-            animation__open="property: opacity; to: 1; startEvents: proximityenter"
-            animation__close="property: opacity; to: 0.5; startEvents: proximityexit">
+        <a-entity id="model3D2" gltf-model="#antoine4" position="0 1 -4" scale="1 1 1"  proximity-sensor="distance: 2" model-opacity="0.001"
+            animation__open="property: model-opacity; to: 1; startEvents: proximityenter"
+            animation__close="property: model-opacity; to: 0.01; startEvents: proximityexit">
         </a-entity>
 
-        <a-entity id="model3D1" gltf-model="#antoine5" position="-2 2 -3" scale="1 1 1" opacity="1" proximity-sensor="distance: 2"
-        animation__open="property: opacity; to: 0.5; startEvents: proximityenter"
-        animation__close="property: opacity; to: 1; startEvents: proximityexit">
+        <a-entity id="model3D1" gltf-model="#antoine5" position="0 1 -4" scale="1 1 1" proximity-sensor="distance: 2" model-opacity="1"
+        animation__open="property: model-opacity; to: 0.001; startEvents: proximityenter"
+        animation__close="property: model-opacity; to: 1; startEvents: proximityexit">
         </a-entity>
 
 
