@@ -61,10 +61,7 @@
 
         <a-entity gltf-model="#maison" position="0 0 0" rotation="0 90 0"  scale="0.3 0.35 0.3" animation-mixer></a-entity>
         <a-entity id="cameraRig">
-            <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: toon; color: #ccccff">
-                <a-text value="X: Teleport" position="0 0.08 0" rotation="-90 0 0" scale="0.1 0.1 0.1"
-                align="center" color="#FFFFFF"></a-text>
-            </a-entity>
+            <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: toon; color: #ccccff"></a-entity>
             <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: toon; color: #ccccff"></a-entity>
             <a-entity id="head" camera position="0 1.40 0" look-controls wasd-controls body-contraint>
                 <a-text id="a-pos" value="position" position="0 0 -1"
