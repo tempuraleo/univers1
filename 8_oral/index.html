@@ -34,6 +34,50 @@
         });
 
     </script>
+
+    <script>
+        AFRAME.registerComponent('scheduled', {
+            schema: {
+                delai: {
+                    type: 'number',
+                    default: 1000
+                }
+            },
+            init: function () {
+                var data = this.data;
+                var delai = data.delai;
+                var moi = this.el;
+
+                setInterval(function () {
+                    var pos = {
+                        x: moi.object3D.position.x,
+                        y: moi.object3D.position.y,
+                        z: moi.object3D.position.z
+                    }
+                    //console.log(typeof pos.y);
+                    var alea = Math.floor(Math.random() * 3);
+                    var loc = getAlea(alea);
+                    console.log(loc);
+                    moi.object3D.position.set(loc.x, loc.y, loc.z);
+
+                    //console.log('delai = ' + delai);
+                    if (delai > 100) delai -= 100;
+                },
+                data.delai);
+            }
+        });
+        function getAlea(cas){
+            var loc;
+            switch(cas) {
+                case 0 : loc = { x: 0.335, y: 0, z:-0.460}; break;
+                case 1 : loc = { x: -0.599, y: 0, z: 3.099}; break;
+                case 2 : loc = { x: -0.753, y: 0, z: 0}; break;
+                default : loc = { x: 0, y: 0, z: -1};
+            }
+            return loc;
+        }
+    </script>
+
 </head>
 
 <body>
@@ -43,6 +87,7 @@
             <a-asset-item id="maison" src="models/cellule1.glb"></a-asset-item>
             <audio id="son" src="models/Son-Prison.mp3" preload="auto"></audio>
             <a-image id="ciel" src="models/sky.jpg">
+            <a-asset-item id="Perso2" src="models/martin.glb"></a-asset-item>
           </a-assets>
 
           <!-- lumières -->
@@ -61,8 +106,14 @@
                    rotation="-90 0 0" width="10" height="10"
                    position="0 0 0"></a-plane>
 
+                   <a-entity id="model3D"
+                             scale="0.4 0.4 0.4"
+                             position="0 0 0"
+                             rotation="0 0 0"
+                             gltf-model="#Perso2" scheduled="delai: 2000"></a-entity>
+
                    <a-entity position="0 1.6 0" animation="property: rotation; to: 0 360 0; dur: 15000; easing:linear; loop:true; repetitions : 25">
-                 <a-box position="0 0 -5" color="#ff0000" >
+                 <a-box position="0 0 -5" material="opacity:0.01 0.01 0.01">
                    <a-sound autoplay="true" src="#son"></a-sound>
                   </a-box>
              </a-entity>
@@ -83,6 +134,40 @@
 
 <a-sky src="#ciel"></a-sky>
     </a-scene>
+
+    <button id="bouton" style="position: absolute; left: 20px; bottom: 20px;">INIT</button>
+
+    <script>
+        var b = document.querySelector('#bouton');
+        var son_zorba = document.querySelector('#son');
+
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
+        var contexteAudio = new AudioContext;
+
+        unlockAudioIOS(contexteAudio); // ok pour context = AudioContext;
+
+    function resumeAudio() {
+      console.log(contexteAudio.state);
+
+      if (contexteAudio.state == "suspended") {
+        contexteAudio.resume();
+        console.log('Playback resumed successfully');
+        son_zorba.play();
+        b.innerHTML = "STOP";
+        console.log("STOP CONSOLE");
+      } else {
+        contexteAudio.suspend();
+        console.log('Playback paused successfully');
+        son_zorba.pause();
+        b.innerHTML = "PLAY";
+        console.log("PLAY CONSOLE");
+      }
+      //document.removeEventListener("click", resumeAudio);
+    }
+
+   b.onclick = resumeAudio;
+   </script>
+
 </body>
 
 </html>
