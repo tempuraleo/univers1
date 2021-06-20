@@ -1,9 +1,11 @@
+<!-- base : x_camera/3_hand-controls_liveposition.html -->
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="./unlock_audio_ios.js"></script>
     <script>
         AFRAME.registerComponent('body-contraint', {
             tick: function () {
@@ -12,6 +14,7 @@
                     z: this.el.object3D.position.z.toFixed(2)
                 }
 
+                // `rotation` is a three.js Euler using radians. `quaternion` also available.
                 var liverot = this.el.object3D.rotation.y;
                 console.log("rotation : "+liverot);
 
@@ -34,10 +37,12 @@
 </head>
 
 <body>
-    <a-scene background="color: #5280A7">
+    <a-scene>
         <a-assets>
             <a-asset-item id="model" src="models/perso.glb"></a-asset-item>
             <a-asset-item id="maison" src="models/cellule1.glb"></a-asset-item>
+            <audio id="son" src="models/Son-Prison.mp3" preload="auto"></audio>
+            <a-image id="ciel" src="models/sky.jpg">
           </a-assets>
 
           <!-- lumières -->
@@ -56,18 +61,27 @@
                    rotation="-90 0 0" width="10" height="10"
                    position="0 0 0"></a-plane>
 
+                   <a-entity position="0 1.6 0" animation="property: rotation; to: 0 360 0; dur: 15000; easing:linear; loop:true; repetitions : 25">
+                 <a-box position="0 0 -5" color="#ff0000" >
+                   <a-sound autoplay="true" src="#son"></a-sound>
+                  </a-box>
+             </a-entity>
+
         <a-entity gltf-model="#maison" position="0 0 0" rotation="0 90 0"  scale="0.3 0.35 0.3" animation-mixer></a-entity>
         <a-entity id="cameraRig">
             <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: toon; color: #ccccff"></a-entity>
             <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: toon; color: #ccccff"></a-entity>
             <a-entity id="head" camera position="0 1.40 0" look-controls wasd-controls body-contraint>
+                <a-text id="a-pos" value="position" position="0 0 -1"
+                        rotation="0 0 0" scale="0 0 0" align="center"
+                        color="#FF0000">
+                </a-text>
             </a-entity>
         </a-entity>
 
         <a-entity id="player" gltf-model="#model" position="0 0 0" rotation="0 180 0"></a-entity>
-        <a-sphere position="0 0.5 -3" radius="0.25" color="yellow"></a-sphere>
-        <a-plane width="10" height="10" color="gray" position="0 0 0" rotation="-90 0 0"></a-plane>
 
+<a-sky src="#ciel"></a-sky>
     </a-scene>
 </body>
 
